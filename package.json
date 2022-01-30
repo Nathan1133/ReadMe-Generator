@@ -1,14 +1,19 @@
 {
-  "name": "static-site",
+  "name": "readmegen",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nathan1133/ReadMe-Generator.git"
+  },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "inquirer": "^6.3.1"
-  }
+  "bugs": {
+    "url": "https://github.com/Nathan1133/ReadMe-Generator/issues"
+  },
+  "homepage": "https://github.com/Nathan1133/ReadMe-Generator#readme"
 }
