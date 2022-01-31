@@ -1,63 +1,53 @@
-// TODO: Include packages needed for this application
-
-//Imported required packages
+// Packages needed
 const fs = require("fs");
 const inquirer = require("inquirer");
-const generateMarkdown = require("./utils/generateMarkdown.js");
-
+const path = require("path");
+const generateMarkdown = require("./utils/generateMarkdown");
 
 // TODO: Create an array of questions for user input
 // Array of questions for user input and inquirer prompt
-const promptUser = () => {
-    return inquirer.prompt([
+const questions = [
     {
-        // Title of the project
+        //Title
         type: "input",
         name: "title",
-        message: "What is the title of your project? ",
+        message: "What is the title of the project?",
         validate: projectInput => {
           if (projectInput) {
             return true;
           } else {
-            console.log("You must enter a title!");
+            console.log("You need to enter a project title!");
             return false;
           };
         } 
     },
     {
-        // User's GitHub Name
+        //GitHub Username
         type: "input",
         name: "github",
         message: "Enter your GitHub username?",
-        validate: usernameInput => {
-          if (usernameInput) {
+        validate: githubInput => {
+          if (githubInput) {
             return true;
           } else {
-            console.log("Enter GitHub username please!");
+            console.log("Enter your GitHub username please!");
             return false;
           }
         }
     },
     {
-        // User's email address
+        //Email address
         type: "input",
         name: "email",
-        message: "Enter your email address where you can be reached for questions"
+        message: "Enter your email address for questions"
     },
     {
-        // Deployed application link
-        type: "input",
-        name: "projectLink",
-        message: "Enter the deployed application link"
-    },
-    
-    {
-        // Description of the project
+        //Description
         type: "input",
         name: "description",
-        message: "Provide a description of the project (Required)",
-        validate: descriptionInput => {
-          if (descriptionInput) {
+        message: "Provide a description of the project",
+        validate: projectInput => {
+          if (projectInput) {
             return true;
           } else {
             console.log("You need to enter a project description!");
@@ -66,66 +56,58 @@ const promptUser = () => {
         }
     },
     {
-        // Installation information
+        //Installation
         type: "input",
         name: "installation",
-        message: "What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running."
+        message: "What steps did you take to install your project?"
     },
     {
-        // Usage information
+        //Usage 
         type: "input",
         name: "usage",
-        message: "Provide instructions and examples for use."
+        message: "Provide information of usage"
     },
     {
-        // What coding languages did you use?
+        //Languages used?
         type: "checkbox",
         name: "languages",
         message: "What languages did you use for this project? (Check all that apply)",
-        choices: ["JavaScript", "HTML", "CSS", "jQuery", "Bootstrap", "Node"]
+        choices: ["Node", "HTML", "Bootstrap", "jQuery", "CSS", "JavaScript"]
       },
     {
-        // Licensing information
+        //Licensing information
         type: "list",
         name: "license",
         message: "Which license would you like to use?",
         choices: ["None", "MIT", "Apache 2.0", "GNU"]
     },
+        //Contribution
     {
-        // Contributing information
         type: "input",
-        name: "contributing",
-        message: "If you would like other developers to contribute to this project, add guidelines for how to do so."
+        name: "contribution",
+        message: "List who contributed?"
     },
+        //Tests
     {
-        // Tests
         type: "input",
         name: "tests",
-        message: "If you wrote tests for your application, explain how to run them. If not, enter 'N/A'"
+        message: "Describe tests?"
     },
+];
 
-])
-.catch(err => {
-    console.log(err);
-  })};
-
-// TODO: Create a function to write README file
-
-
+// Function to write README file
 function writeToFile(fileName, data) {
-    return new Promise((resolve, reject) => {
-      fs.writeFile("./dist/README.md", fileName, data, err => {
-        if (err) {
-          reject(err);
-          return;
+    // Uses the node path module & process.cwd function to join the current working directory to the file name passed to it from the init function
+    return fs.writeFileSync(path.join(process.cwd(), fileName), data);
+};
 
-// TODO: Create a function to initialize app
+// Function to initialize the application
 function init() {
-    promptUser().then(inquirerResponses => {
-        writeToFile("./dist/README.md", generateMarkdown({ ...inquirerResponses }));
-     })
-
-}
+    inquirer.prompt(questions).then(inquirerResponses => {
+        console.log("Your README file is now being generated. You will find the completed file in the 'dist' folder.")
+       writeToFile("/dist/README.md", generateMarkdown({ ...inquirerResponses }));
+    })
+};
 
 // Function call to initialize app
 init();
