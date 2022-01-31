@@ -17,10 +17,6 @@
   },
   "homepage": "https://github.com/Nathan1133/ReadMe-Generator#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "inquirer": "^6.5.2"
-=======
     "inquirer": "^8.2.0"
->>>>>>> develop
   }
 }
