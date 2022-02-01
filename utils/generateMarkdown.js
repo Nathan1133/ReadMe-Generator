@@ -1,10 +1,9 @@
-// Function that returns a license badge based on which license is passed in
+
 
 function renderLicenseBadge(license) {
-  // If there is no license, return an empty string
   if (license === "None") {
     return "";
-  } // Else, display the License badge
+  } 
   return `![GitHub license](https://img.shields.io/badge/license-${license}-ff69b4.svg)`;
 }
 
@@ -12,10 +11,9 @@ function renderLicenseBadge(license) {
 // Function that returns the license section of README
 
 function renderLicenseSection(license) {
-  // If there is no license, return an empty string
   if (license === "None") {
     return "";
-  } // Else, display the License section in the ReadMe
+  }
   return `## License
   This App is licensed under ${license} license.`;
 }
